@@ -1,1 +1,1 @@
-
+document.querySelector("#admin-login")?.addEventListener("submit",async e=>{e.preventDefault();const form=e.currentTarget;const msg=document.querySelector("#login-message");msg.textContent="جارٍ التحقق…";try{const r=await fetch("/api/auth/admin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:form.password.value})});if(!r.ok)throw Error("بيانات الدخول غير صحيحة");location.href="/admin/dashboard/"}catch(err){msg.textContent=err.message}});

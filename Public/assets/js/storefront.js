@@ -1,1 +1,7 @@
-
+const productsEl=document.querySelector("#products");const beansEl=document.querySelector("#beans-grid");let allProducts=[];
+function card(p){return `<article class="product-card"><div class="product-visual">☕</div><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description||"اختيار مميز من بن آسيا")}</p><div class="product-bottom"><span>${(Number(p.price_piasters||0)/100).toFixed(2)} ج.م</span><span>ASIA COFFEE</span></div></article>`}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function load(){try{const r=await fetch("/api/public/menu");if(!r.ok)throw Error();const d=await r.json();allProducts=d.products||[];render("all")}catch{productsEl.innerHTML='<p class="loading">المنيو بيتجهز حاليًا. هنضيف المنتجات قريبًا.</p>';beansEl.innerHTML='<p class="loading">منتجات البن هتظهر هنا قريبًا.</p>'}}
+function render(filter){const drinks=allProducts.filter(p=>p.product_type!=="coffee_bean");const beans=allProducts.filter(p=>p.product_type==="coffee_bean");const shown=filter==="all"?drinks:drinks.filter(p=>p.category_slug===filter||p.category_name===filter);productsEl.innerHTML=shown.length?shown.map(card).join(""):'<p class="loading">لا توجد منتجات معروضة حاليًا.</p>';beansEl.innerHTML=beans.length?beans.map(card).join(""):'<p class="loading">منتجات البن ستظهر هنا عند إضافتها من لوحة الإدارة.</p>'}
+document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>{document.querySelector(".category.active")?.classList.remove("active");b.classList.add("active");render(b.dataset.category)}));
+const year=document.querySelector("#year");if(year)year.textContent=new Date().getFullYear();load();
