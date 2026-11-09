@@ -1,5 +1,5 @@
 name = "ben-asia"
-pages_build_output_dir = "public"
+pages_build_output_dir = "Public"
 compatibility_date = "2026-11-08"
 
 [[d1_databases]]
