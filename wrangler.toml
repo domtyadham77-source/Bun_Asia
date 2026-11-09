@@ -5,5 +5,5 @@ compatibility_date = "2026-11-08"
 [[d1_databases]]
 binding = "DB"
 database_name = "ben-asia-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "7a41a9ed-72f6-4f1e-a538-b3a16197499d"
 migrations_dir = "migrations"
